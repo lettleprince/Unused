@@ -47,7 +47,7 @@ def searchingImage():
         unused = True
         for filePath in ALL_FILES:
             (_, ext) = os.path.splitext(filePath)
-            if ext in ['.nib']:#需要跳过的特殊文件或目录
+            if ext in ['.nib', '']:#需要跳过的特殊文件或目录
                 continue
             cmd = 'grep -c ' + imagename  + ' ' + filePath
             if int(commands.getoutput(cmd)) > 0:#只要查找到了，就标记为已经用到过
@@ -96,8 +96,10 @@ def searchingClass():
 
 
 def echoFiles(unused_files, totalsize = -1.0):
+    os.chdir(PROJECT_PATH)
     f = open('Unused.html','w')
     f.write('<html>')
+    f.write('<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>')
     f.write('<h2> Unused resources </h2>')
     f.write('<body>')
     f.write('<h3>')
