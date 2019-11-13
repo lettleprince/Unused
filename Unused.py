@@ -22,7 +22,6 @@ TARGET_PATH = os.path.splitext(os.path.dirname(PROJECT_FILE_PATH))[0]
 
 #所有文件
 ALL_FILES = commands.getoutput("find " + TARGET_PATH + " -name '*.?ib' -o -name '*.[mh]' -o -name '*.storyboard'")
-# print ALL_FILES
 
 def searchingImage():
     print ''
@@ -45,7 +44,7 @@ def searchingImage():
     for image_path in stdoutput.split():
         imagename = commands.getoutput("basename -s .jpg " + image_path + " | xargs basename -s .png | xargs basename -s @2x | xargs basename -s @3x")
         unused = True
-        for filePath in ALL_FILES:
+        for filePath in ALL_FILES.split():
             (_, ext) = os.path.splitext(filePath)
             if ext in ['.nib', '']:#需要跳过的特殊文件或目录
                 continue
